@@ -389,14 +389,15 @@ async def get_shortlink(link):
               'format': 'json'
               }
 
-    #try:
-        #async with aiohttp.ClientSession() as session:
-            #async with session.get(url, params=params, raise_for_status=True, ssl=False) as response:
-                #data = await response.json(content_type='text/html')
-                #if data["status"] == "success":
-                    #return data['shortlink']
-                #else:
-                    #logger.error(f"Error: {data['message']}")
+    try:
+        async with aiohttp.ClientSession() as session:
+            async with session.get(url, params=params, raise_for_status=True, ssl=False) as response:
+                data = await response.json(content_type='text/html')
+                if data["status"] == "success":
+                    return data['shortlink']
+                else:
+                    logger.error(f"Error: {data['message']}")
+                    return f''
                     #return f'https://tnlink.in/directLink?token={URL_SHORTNER_WEBSITE_API}&link={link}'
 
     #except Exception as e:
